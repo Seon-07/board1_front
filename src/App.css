@@ -1,0 +1,15 @@
+.loginBtn {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    height: 10vh;
+    width: 10vw;
+    font-size: 2rem;
+    border-radius: 8px;
+    background-color: lightgray;
+    border: none;
+}
+.loginBtn:hover {
+    opacity: 0.8;
+}
