@@ -13,3 +13,8 @@
 .loginBtn:hover {
     opacity: 0.8;
 }
+
+.loginBtn a {
+    text-decoration: none;
+    color: black;
+}
