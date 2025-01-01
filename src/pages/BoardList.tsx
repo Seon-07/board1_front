@@ -16,7 +16,7 @@ const App: React.FC = () => {
         // API 요청을 보내서 데이터 가져오기
         axios.get('http://localhost:8080/board/list')
             .then(response => {
-                const data = response.data.data.data;
+                const data = response.data.data;
                 setBoardList(data);  // 상태에 데이터 저장
             })
             .catch(error => {
