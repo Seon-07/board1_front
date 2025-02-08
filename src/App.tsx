@@ -1,15 +1,16 @@
-import './App.css';
+import './index.css';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import LoginBtn from './components/LoginBtn';
+import Dashboard from './pages/Dashboard';
 import BoardList from './pages/BoardList';
-
+import Board from './pages/Board';
 
 const App: React.FC = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<LoginBtn />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/boardList" element={<BoardList />} />
+                <Route path="/board/:id" element={<Board />} />
             </Routes>
         </Router>
     );

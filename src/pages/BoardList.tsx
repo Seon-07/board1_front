@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 interface Board {
     id: string;
     title: string;
-    content: string;
     author: string;
 }
 
-const App: React.FC = () => {
+const BoardList: React.FC = () => {
     const [boardList, setBoardList] = useState<Board[]>([]);
 
-
     useEffect(() => {
-        // API 요청을 보내서 데이터 가져오기
         axios.get('http://localhost:8080/board/list')
             .then(response => {
                 const data = response.data.data;
@@ -25,19 +23,27 @@ const App: React.FC = () => {
     }, []);
 
     return (
-        <div className="App">
+        <div>
             <h1>게시판</h1>
-            {/* 데이터가 존재하는 경우 출력 */}
             {boardList.length > 0 ? (
-                <ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th>작성자</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     {boardList.map(board => (
-                        <li key={board.id}>
-                            <h2>{board.title}</h2>
-                            <p>{board.content}</p>
-                            <small>작성자: {board.author}</small>
-                        </li>
+                        <tr key={board.id}>
+                            <td>
+                                <Link to={`/board/${board.id}`}>{board.title}</Link>
+                            </td>
+                            <td>{board.author}</td>
+                        </tr>
                     ))}
-                </ul>
+                    </tbody>
+                </table>
             ) : (
                 <p>데이터를 불러오는 중입니다...</p>
             )}
@@ -45,4 +51,4 @@ const App: React.FC = () => {
     );
 }
 
-export default App;
+export default BoardList;
