@@ -16,7 +16,7 @@ const BoardList: React.FC = () => {
         axios.get('http://localhost:8080/board/list')
             .then(response => {
                 const data = response.data.data;
-                setBoardList(data);  // 상태에 데이터 저장
+                setBoardList(data);
             })
             .catch(error => {
                 console.error("데이터 가져오기 실패:", error);
@@ -25,9 +25,12 @@ const BoardList: React.FC = () => {
 
     return (
         <div>
-            <div className="flex justify-center items-center py-8">
-                <Button text="이전" color="gray" onClick={() => navigate(`/`)} className="absolute top-4 left-4"/>
-                <div className="text-4xl">게시판</div>
+            <div className="w-screen flex justify-center items-center py-8">
+                <div className="w-3/4 flex justify-between">
+                    <Button text="이전" color="gray" onClick={() => navigate(`/`)}/>
+                    <div className="text-4xl">게시판</div>
+                    <Button text="등록" color="blue" onClick={() => navigate(`/board/insert`)}/>
+                </div>
             </div>
             <div className="flex justify-center">
             {boardList.length > 0 ? (
