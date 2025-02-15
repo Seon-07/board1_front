@@ -27,6 +27,23 @@ const Board: React.FC = () => {
         }
     }, [id]);
 
+    const handleDelete = () => {
+        if (!window.confirm("정말로 삭제하시겠습니까?")) return;
+        axios.post(`http://localhost:8080/board/delete`,{id})
+            .then(response => {
+                if (response.status === 200) {
+                    alert("게시글이 삭제되었습니다.");
+                    navigate("/Boardlist"); // 삭제 후 목록 페이지로 이동
+                } else {
+                    alert("삭제 실패");
+                }
+            })
+            .catch(error => {
+                console.error("게시글 삭제 실패:", error);
+                alert("서버 오류로 인해 삭제할 수 없습니다.");
+            });
+    };
+
     if (!board) {
         return <p>게시글을 불러오는 중입니다...</p>;
     }
@@ -35,9 +52,12 @@ const Board: React.FC = () => {
         <div className="h-screen flex flex-col">
             <div className="w-screen flex justify-center items-center py-8">
                 <div className="w-3/4 flex justify-between">
-                    <Button text="이전" color="gray" onClick={() => navigate(`/Boardlist`)}/>
+                    <Button text="목록" color="gray" onClick={() => navigate(`/boardlist`)}/>
                         <div className="text-4xl">상세보기</div>
-                    <Button text="수정" color="green" onClick={() => navigate(`/InsertBoard`)}/>
+                    <div>
+                        <Button text="수정" color="green" onClick={() => navigate(`/board/update/${id}`)}/>
+                        <Button text="삭제" color="red" className="ml-4" onClick={handleDelete}/>
+                    </div>
                 </div>
             </div>
             <div className="flex justify-center h-[70%]">

@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import BoardList from './pages/BoardList';
 import Board from './pages/Board';
 import InsertBoard from './pages/InsertBoard';
+import UpdateBoard from './pages/UpdateBoard';
 
 const App: React.FC = () => {
     return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
                 <Route path="/boardList" element={<BoardList />} />
                 <Route path="/board/:id" element={<Board />} />
                 <Route path="/board/insert" element={<InsertBoard />} />
+                <Route path="/board/update/:id" element={<UpdateBoard />} />
             </Routes>
         </Router>
     );
