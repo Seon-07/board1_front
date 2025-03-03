@@ -10,14 +10,14 @@ interface Board {
     content: string;
     author: string;
 }
-
+const apiUrl = import.meta.env.VITE_API_URL;
 const Board: React.FC = () => {
     const { id } = useParams();
     const [board, setBoard] = useState<Board | null>(null);
     const navigate = useNavigate();
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:8080/board?id=${id}`)
+            axios.get(`${apiUrl}/board?id=${id}`)
                 .then(response => {
                     setBoard(response.data.data);
                 })
@@ -29,7 +29,7 @@ const Board: React.FC = () => {
 
     const handleDelete = () => {
         if (!window.confirm("정말로 삭제하시겠습니까?")) return;
-        axios.post(`http://localhost:8080/board/delete`,{id})
+        axios.post(`{apiUrl}/board/delete`,{id})
             .then(response => {
                 if (response.status === 200) {
                     alert("게시글이 삭제되었습니다.");
@@ -43,10 +43,6 @@ const Board: React.FC = () => {
                 alert("서버 오류로 인해 삭제할 수 없습니다.");
             });
     };
-
-    if (!board) {
-        return <p>게시글을 불러오는 중입니다...</p>;
-    }
 
     return (
         <div className="h-screen flex flex-col">
@@ -65,15 +61,15 @@ const Board: React.FC = () => {
                     <tbody>
                         <tr className="h-1/5">
                             <td className="py-8 w-1/5 text-center font-bold text-2xl">제목</td>
-                            <td className="py-8 w-4/5 px-4">{board.title}</td>
+                            <td className="py-8 w-4/5 px-4">{board ? board.title : '[로딩 중...]'}</td>
                         </tr>
                         <tr className="h-1/5">
                             <td className="py-8 w-1/5 text-center font-bold text-2xl">작성자</td>
-                            <td className="py-8 w-4/5 px-4">{board.author}</td>
+                            <td className="py-8 w-4/5 px-4">{board ? board.author : ''}</td>
                         </tr>
                         <tr className="h-3/5">
                             <td className="py-8 w-1/5 text-center font-bold text-2xl">내용</td>
-                            <td className="py-8 w-4/5 px-4 align-top">{board.content}</td>
+                            <td className="py-8 w-4/5 px-4 align-top">{board ? board.content : ''}</td>
                         </tr>
                     </tbody>
                 </table>

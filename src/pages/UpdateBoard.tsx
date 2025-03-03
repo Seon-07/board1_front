@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Button from "../components/Button";
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const UpdateBoard: React.FC = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -12,7 +13,7 @@ const UpdateBoard: React.FC = () => {
     const [content, setContent] = useState("");
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:8080/board?id=${id}`)
+            axios.get(`${apiUrl}/board?id=${id}`)
                 .then(response => {
                     const boardData = response.data.data;
                     setTitle(boardData.title);
@@ -31,7 +32,7 @@ const UpdateBoard: React.FC = () => {
         }
         const data = { id, title, author, content };
         try {
-            const response = await axios.post("http://localhost:8080/board/update", data, {
+            const response = await axios.post(`${apiUrl}/board/update`, data, {
                 headers: { "Content-Type": "application/json" },
             });
             if (response.status === 200) {

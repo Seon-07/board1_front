@@ -8,12 +8,12 @@ interface Board {
     title: string;
     author: string;
 }
-
+const apiUrl = import.meta.env.VITE_API_URL;
 const BoardList: React.FC = () => {
     const [boardList, setBoardList] = useState<Board[]>([]);
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get('http://localhost:8080/board/list')
+        axios.get(`${apiUrl}/board/list`)
             .then(response => {
                 const data = response.data.data;
                 setBoardList(data);

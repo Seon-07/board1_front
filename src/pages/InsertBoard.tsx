@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const Board: React.FC = () => {
     const navigate = useNavigate();
     const titleRef = useRef<HTMLInputElement>(null);
@@ -20,7 +21,7 @@ const Board: React.FC = () => {
         }
         const data = { title, author, content };
         try {
-            const response = await axios.post("http://localhost:8080/board", data, {
+            const response = await axios.post(`${apiUrl}/board`, data, {
                 headers: { "Content-Type": "application/json" },
             });
             if (response.status === 200) {
